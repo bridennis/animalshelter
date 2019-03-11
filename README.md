@@ -1,2 +1,4 @@
-####Запуск
-``php index.php``
+### Запуск
+~~~
+php index.php
+~~~
