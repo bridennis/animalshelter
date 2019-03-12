@@ -1,13 +1,13 @@
 <?php
 
-namespace App\AnimalShelter;
+namespace App;
 
 /**
  * Class Dog
  *
- * @package App\AnimalShelter
+ * @package App
  */
 class Dog extends Animal
 {
-    public static $type = 'Собака';
+    const TYPE = 'Собака';
 }

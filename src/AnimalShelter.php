@@ -1,41 +1,35 @@
 <?php
 
-namespace App\AnimalShelter;
+namespace App;
 
-class AnimalShelter extends Singleton
+class AnimalShelter
 {
-    private $animalList = null;
+    private static $animalList = [];
 
     /**
      * Поместить в приют.
+     *
      * @param Animal $animal
      */
-    public static function takeInAnimal($animal)
+    public static function takeInAnimal(Animal $animal)
     {
-        if ($animal instanceof Animal
-            && !empty($animal->getName())
-            && !empty($animal->getBirthday())
-        ) {
-            AnimalShelter::getInstance()->animalList[] = $animal;
-        }
+        static::$animalList[] = $animal;
     }
 
     /**
      * Передать человеку  животное (определенного типа/без указания типа), находящееся в приюте наибольшее время.
+     *
      * @param string $type
      * @return Animal|null
      */
-    public static function takeOutAnimal($type = '')
+    public static function takeOutAnimal(string $type = '') :?Animal
     {
-        /** @var AnimalShelter $animalShelter */
-        $animalShelter = AnimalShelter::getInstance();
-
         // Первые в списке добавленных находятся наибольшее время в приюте
 
         /** @var Animal $animal */
-        foreach ($animalShelter->animalList as $k => $animal) {
-            if ($animal->getType() == $type || empty($type)) {
-                unset($animalShelter->animalList[$k]);
+        foreach (static::$animalList as $k => $animal) {
+            if ($animal->getType() === $type || empty($type)) {
+                unset(static::$animalList[$k]);
                 return $animal;
             }
         }
@@ -45,17 +39,15 @@ class AnimalShelter extends Singleton
 
     /**
      * Посмотреть всех животных определенного типа, сортированных по кличке в алфавитном порядке.
+     *
      * @param string $type
      */
-    public static function showAnimalListByTypeSortedByName($type = '')
+    public static function showAnimalListByTypeSortedByName(string $type = '')
     {
-        /** @var AnimalShelter $animalShelter */
-        $animalShelter = AnimalShelter::getInstance();
-
         $filter = [];
         /** @var Animal $animal */
-        foreach ($animalShelter->animalList as $k => $animal) {
-            if ($animal->getType() == $type || empty($type)) {
+        foreach (static::$animalList as $k => $animal) {
+            if ($animal->getType() === $type || empty($type)) {
                 $filter[$k] = $animal->getName();
             }
         }
@@ -63,20 +55,21 @@ class AnimalShelter extends Singleton
         if (count($filter) > 0) {
             asort($filter);
             foreach ($filter as $k => $v) {
-                echo $animalShelter->animalList[$k];
+                echo static::$animalList[$k];
             }
         }
     }
 
     /**
      * Посмотреть всех животных определенного типа.
+     *
      * @param string $type
      */
-    public static function showAnimalListByType($type = '')
+    public static function showAnimalListByType(string $type = '')
     {
         /** @var Animal $animal */
-        foreach (AnimalShelter::getInstance()->animalList as $animal) {
-            if ($animal->getType() == $type || empty($type)) {
+        foreach (static::$animalList as $animal) {
+            if ($animal->getType() === $type || empty($type)) {
                 echo $animal;
             }
         }

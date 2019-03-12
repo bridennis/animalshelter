@@ -1,39 +1,56 @@
 <?php
 
-namespace App\AnimalShelter;
+namespace App;
 
 use DateTime;
 
 abstract class Animal
 {
-    /*
-     * Кличка
+    /**
+     * @var string Кличка.
      */
     private $name;
 
-    /*
-     * День рождения
+    /**
+     * @var DateTime День рождения.
      */
     private $birthday;
 
-    /*
-     * Тип животного
+    /**
+     * @var string Тип животного.
      */
-    protected static $type;
+    const TYPE = 'Животное';
 
     /**
      * Animal constructor.
      *
-     * @param string $name     Кличка
-     * @param string $birthday День рождения
+     * @param string $name Кличка
+     * @param string $birthday День рождения в формате YYYY-MM-DD
+     * @throws \Exception
      */
-    public function __construct($name, $birthday)
+    public function __construct(string $name, string $birthday)
     {
-        $this->setName($name);
-        $this->setBirthday($birthday);
+        if (empty($name) || empty($birthday)) {
+            throw new \BadMethodCallException('Неверные входные параметры');
+        } else {
+            try {
+                $this->birthday = (new DateTime(date($birthday)));
+                if ($this->birthday->format('Y-m-d') > date('Y-m-d')) {
+                    throw new \OutOfBoundsException('Дата рождения не может быть больше текущей');
+                }
+            } catch (\Exception $e) {
+                throw $e;
+            }
+        }
+        $this->name = $name;
     }
 
-    public function __toString()
+    /**
+     * Возвращает строковое представление объекта.
+     *
+     * @return string
+     */
+    public function __toString() :string
     {
         return sprintf(
             '%s: Кличка - "%s", Возраст - "%s" (лет)' . "\n",
@@ -43,48 +60,47 @@ abstract class Animal
         );
     }
 
-    public function getAge()
+    /**
+     * Возвращает возраст.
+     *
+     * @return int|string
+     */
+    public function getAge() :string
     {
         try {
-            return (new DateTime(date('Y-m-d')))
-                ->diff(new DateTime($this->getBirthday()))
-                ->format('%y');
+            return (new DateTime(date('Y-m-d')))->diff($this->getBirthday())->format('%y');
         } catch (\Exception $e) {
             return '-';
         }
     }
 
-    private function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    private function setBirthday($date)
-    {
-        $this->birthday = $date;
-    }
-
     /**
-     * @return mixed
+     * Возвращает имя.
+     *
+     * @return string
      */
-    public function getName()
+    public function getName() :string
     {
         return $this->name;
     }
 
     /**
-     * @return mixed
+     * Возвращает дату рождения.
+     *
+     * @return DateTime
      */
-    public function getBirthday()
+    public function getBirthday() :DateTime
     {
         return $this->birthday;
     }
 
     /**
-     * @return mixed
+     * Возвращает тип животного.
+     *
+     * @return string
      */
-    public function getType()
+    public function getType() :string
     {
-        return static::$type;
+        return $this::TYPE;
     }
 }
