@@ -28,3 +28,8 @@ PHP >= 7.1.0
 composer install
 php index.php
 ~~~
+
+### Запуск тестов
+~~~
+./vendor/bin/phpunit --bootstrap vendor/autoload.php tests/*
+~~~

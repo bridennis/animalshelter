@@ -121,11 +121,11 @@ abstract class Animal
         } else {
             try {
                 $this->birthday = (new DateTime(date($birthday)));
-                if ($this->birthday->format('Y-m-d') > date('Y-m-d')) {
-                    throw new \OutOfBoundsException('Дата рождения не может быть больше текущей даты');
-                }
             } catch (\Exception $e) {
                 throw $e;
+            }
+            if ($this->birthday->format('Y-m-d') > date('Y-m-d')) {
+                throw new \OutOfBoundsException('Дата рождения не может быть больше текущей даты');
             }
         }
     }
