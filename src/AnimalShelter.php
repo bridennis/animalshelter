@@ -22,7 +22,7 @@ class AnimalShelter
      * @param string $type
      * @return Animal|null
      */
-    public static function takeOutAnimal(string $type = '') :?Animal
+    public static function takeOutAnimal(string $type = null) :?Animal
     {
         // Первые в списке добавленных находятся наибольшее время в приюте
 
@@ -42,7 +42,7 @@ class AnimalShelter
      *
      * @param string $type
      */
-    public static function showAnimalListByTypeSortedByName(string $type = '')
+    public static function showAnimalListByTypeSortedByName(string $type = null)
     {
         $filter = [];
         /** @var Animal $animal */
@@ -65,7 +65,7 @@ class AnimalShelter
      *
      * @param string $type
      */
-    public static function showAnimalListByType(string $type = '')
+    public static function showAnimalListByType(string $type = null)
     {
         /** @var Animal $animal */
         foreach (static::$animalList as $animal) {

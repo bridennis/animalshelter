@@ -19,6 +19,7 @@ try {
     /* @TODO Сделать тесты */
 //    AnimalShelter::takeInAnimal(new Cat('noname', '2018-13-30'));
 //    AnimalShelter::takeInAnimal(new Cat('noname', '2029-03-14'));
+//    AnimalShelter::takeInAnimal(new Cat('noname', ''));
 //    AnimalShelter::takeInAnimal('');
 } catch (Exception | TypeError$e) {
     die(sprintf("Ошибка:\n%s\n%s", $e->getMessage(), $e->getTraceAsString()));

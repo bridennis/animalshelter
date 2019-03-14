@@ -30,19 +30,8 @@ abstract class Animal
      */
     public function __construct(string $name, string $birthday)
     {
-        if (empty($name) || empty($birthday)) {
-            throw new \BadMethodCallException('Неверные входные параметры');
-        } else {
-            try {
-                $this->birthday = (new DateTime(date($birthday)));
-                if ($this->birthday->format('Y-m-d') > date('Y-m-d')) {
-                    throw new \OutOfBoundsException('Дата рождения не может быть больше текущей');
-                }
-            } catch (\Exception $e) {
-                throw $e;
-            }
-        }
-        $this->name = $name;
+        $this->setName($name);
+        $this->setBirthday($birthday);
     }
 
     /**
@@ -102,5 +91,42 @@ abstract class Animal
     public function getType() :string
     {
         return $this::TYPE;
+    }
+
+    /**
+     * Устанавливает имя выполняя валидацию.
+     *
+     * @param string $name
+     */
+    private function setName(string $name): void
+    {
+        if (empty($name)) {
+            throw new \BadMethodCallException('Неверный входной параметр: name');
+        } else {
+            $this->name = $name;
+        }
+
+    }
+
+    /**
+     * Устанавливает День рождения выполняя валидацию.
+     *
+     * @param string $birthday
+     * @throws \Exception
+     */
+    public function setBirthday(string $birthday): void
+    {
+        if (empty($birthday)) {
+            throw new \BadMethodCallException('Неверный входной параметр: birthday');
+        } else {
+            try {
+                $this->birthday = (new DateTime(date($birthday)));
+                if ($this->birthday->format('Y-m-d') > date('Y-m-d')) {
+                    throw new \OutOfBoundsException('Дата рождения не может быть больше текущей даты');
+                }
+            } catch (\Exception $e) {
+                throw $e;
+            }
+        }
     }
 }
