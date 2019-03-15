@@ -3,5 +3,8 @@ language: php
 php:
   - 7.1
 
+script:
+  - vendor/bin/phpunit --bootstrap vendor/autoload.php tests/*
+
 after_success:
   - bash <(curl -s https://codecov.io/bash)
