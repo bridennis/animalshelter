@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/bridennis/animalshelter.svg?branch=master)](https://travis-ci.org/bridennis/animalshelter)
+[![codecov](https://codecov.io/gh/bridennis/animalshelter/branch/master/graph/badge.svg)](https://codecov.io/gh/bridennis/animalshelter)
 
 ## Тест на ООП
 Приют животных.
