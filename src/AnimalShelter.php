@@ -46,10 +46,8 @@ class AnimalShelter
     {
         $filter = [];
         /** @var Animal $animal */
-        foreach (static::$animalList as $k => $animal) {
-            if ($animal->getType() === $type || empty($type)) {
-                $filter[$k] = $animal->getName();
-            }
+        foreach (static::getAnimalListByType($type) as $k => $animal) {
+            $filter[$k] = $animal->getName();
         }
 
         if (count($filter) > 0) {
@@ -67,10 +65,23 @@ class AnimalShelter
      */
     public static function showAnimalListByType(string $type = null)
     {
+        foreach (static::getAnimalListByType($type) as $animal) {
+            echo $animal;
+        }
+    }
+
+    /**
+     * Получить всех животных определенного типа.
+     *
+     * @param string|null $type
+     * @return \Generator
+     */
+    private static function getAnimalListByType(string $type = null)
+    {
         /** @var Animal $animal */
-        foreach (static::$animalList as $animal) {
+        foreach (static::$animalList as $k => $animal) {
             if ($animal->getType() === $type || empty($type)) {
-                echo $animal;
+                yield $k => $animal;
             }
         }
     }
