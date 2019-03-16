@@ -52,14 +52,14 @@ abstract class Animal
     /**
      * Возвращает возраст.
      *
-     * @return int|string
+     * @return int
      */
-    public function getAge() :string
+    public function getAge() :int
     {
         try {
             return (new DateTime(date('Y-m-d')))->diff($this->getBirthday())->format('%y');
         } catch (\Exception $e) {
-            return '-';
+            return -1;
         }
     }
 
@@ -105,7 +105,6 @@ abstract class Animal
         } else {
             $this->name = $name;
         }
-
     }
 
     /**
