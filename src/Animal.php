@@ -60,6 +60,7 @@ abstract class Animal
         try {
             $age = (new DateTime())->diff($this->getBirthday())->format('%y');
         } catch (\Exception $e) {
+            unset($e);
         }
         return $age;
     }
