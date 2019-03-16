@@ -52,7 +52,7 @@ class AnimalShelter
 
         if (count($filter) > 0) {
             asort($filter);
-            foreach ($filter as $k => $v) {
+            foreach (array_keys($filter) as $k) {
                 echo static::$animalList[$k];
             }
         }
