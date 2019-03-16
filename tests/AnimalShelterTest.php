@@ -1,14 +1,30 @@
 <?php
 declare(strict_types=1);
 
+namespace AppTest;
+
 use App\AnimalShelter;
 use App\Cat;
+use App\Dog;
+use App\Turtle;
+use BadMethodCallException;
+use DateTime;
+use OutOfBoundsException;
+use \Exception;
 use PHPUnit\Framework\TestCase;
+use TypeError;
 
 final class AnimalShelterTest extends TestCase
 {
+
+    public function tearDown(): void
+    {
+        while (AnimalShelter::takeOutAnimal() !== null) {
+        }
+    }
+
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testCanBeCreatedFromValidCatObject(): void
     {
@@ -28,9 +44,9 @@ final class AnimalShelterTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
-    public function testCannotBeCreatedFromEmptyName(): void
+    public function testCanNotBeCreatedFromEmptyName(): void
     {
         $this->expectException(BadMethodCallException::class);
 
@@ -38,9 +54,9 @@ final class AnimalShelterTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
-    public function testCannotBeCreatedFromEmptyBirthday(): void
+    public function testCanNotBeCreatedFromEmptyBirthday(): void
     {
         $this->expectException(BadMethodCallException::class);
 
@@ -48,9 +64,9 @@ final class AnimalShelterTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
-    public function testCannotBeCreatedFromInvalidBirthdayDate(): void
+    public function testCanNotBeCreatedFromInvalidBirthdayDate(): void
     {
         $this->expectException(Exception::class);
 
@@ -58,9 +74,9 @@ final class AnimalShelterTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
-    public function testCannotBeCreatedFromOutOfBoundsBirthdayDate(): void
+    public function testCanNotBeCreatedFromOutOfBoundsBirthdayDate(): void
     {
         $this->expectException(OutOfBoundsException::class);
 
@@ -68,7 +84,7 @@ final class AnimalShelterTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testCanBeValidTakeOutAsCatAnimal(): void
     {
@@ -90,5 +106,49 @@ final class AnimalShelterTest extends TestCase
             new DateTime($birthday),
             $cat->getBirthday()
         );
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testAnimalListGivenByTypeAndSortedByName() :void
+    {
+        $output = <<<'EOD'
+Собака: Кличка - "Барбос", Возраст - "3" (лет)
+Собака: Кличка - "Тузик", Возраст - "8" (лет)
+
+EOD;
+        $this->initAnimalList();
+
+        $this->expectOutputString($output);
+
+        AnimalShelter::showAnimalListByTypeSortedByName(Dog::TYPE);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testAnimalListGivenByType() :void
+    {
+        $output = <<<'EOD'
+Собака: Кличка - "Тузик", Возраст - "8" (лет)
+Собака: Кличка - "Барбос", Возраст - "3" (лет)
+
+EOD;
+        $this->initAnimalList();
+
+        $this->expectOutputString($output);
+
+        AnimalShelter::showAnimalListByType(Dog::TYPE);
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function initAnimalList()
+    {
+        AnimalShelter::takeInAnimal(new Dog('Тузик', '2010-10-08'));
+        AnimalShelter::takeInAnimal(new Turtle('Леонардо', '2000-12-10'));
+        AnimalShelter::takeInAnimal(new Dog('Барбос', '2016-03-08'));
     }
 }
