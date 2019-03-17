@@ -56,13 +56,11 @@ abstract class Animal
      */
     public function getAge() :int
     {
-        $age = -1;
         try {
-            $age = (new DateTime())->diff($this->getBirthday())->format('%y');
+            return (new DateTime())->diff($this->getBirthday())->format('%y');
         } catch (\Exception $e) {
-            unset($e);
+            return -1;
         }
-        return $age;
     }
 
     /**
