@@ -113,7 +113,7 @@ abstract class Animal
      * @param string $birthday
      * @throws \Exception
      */
-    public function setBirthday(string $birthday): void
+    private function setBirthday(string $birthday): void
     {
         if (empty($birthday)) {
             throw new \BadMethodCallException('Неверный входной параметр: birthday');
