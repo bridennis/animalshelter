@@ -111,7 +111,7 @@ final class AnimalShelterTest extends TestCase
     /**
      * @throws Exception
      */
-    public function testAnimalListGivenByTypeAndSortedByName() :void
+    public function testShowAnimalListGivenByTypeAndSortedByName() :void
     {
         $output = <<<'EOD'
 Собака: Кличка - "Барбос", Возраст - "3" (лет)
@@ -128,7 +128,7 @@ EOD;
     /**
      * @throws Exception
      */
-    public function testAnimalListGivenByType() :void
+    public function testShowAnimalListGivenByType() :void
     {
         $output = <<<'EOD'
 Собака: Кличка - "Тузик", Возраст - "8" (лет)
