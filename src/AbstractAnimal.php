@@ -4,7 +4,7 @@ namespace App;
 
 use DateTime;
 
-abstract class Animal
+abstract class AbstractAnimal
 {
     /**
      * @var string Кличка.

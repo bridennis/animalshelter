@@ -9,9 +9,9 @@ class AnimalShelter
     /**
      * Поместить в приют.
      *
-     * @param Animal $animal
+     * @param AbstractAnimal $animal
      */
-    public static function takeInAnimal(Animal $animal)
+    public static function takeInAnimal(AbstractAnimal $animal)
     {
         static::$animalList[] = $animal;
     }
@@ -20,13 +20,13 @@ class AnimalShelter
      * Передать человеку  животное (определенного типа/без указания типа), находящееся в приюте наибольшее время.
      *
      * @param string $type
-     * @return Animal|null
+     * @return AbstractAnimal|null
      */
-    public static function takeOutAnimal(string $type = null) :?Animal
+    public static function takeOutAnimal(string $type = null) :?AbstractAnimal
     {
         // Первые в списке добавленных находятся наибольшее время в приюте
 
-        /** @var Animal $animal */
+        /** @var AbstractAnimal $animal */
         foreach (static::$animalList as $k => $animal) {
             if ($animal->getType() === $type || empty($type)) {
                 unset(static::$animalList[$k]);
@@ -45,7 +45,7 @@ class AnimalShelter
     public static function showAnimalListByTypeSortedByName(string $type = null)
     {
         $filter = [];
-        /** @var Animal $animal */
+        /** @var AbstractAnimal $animal */
         foreach (static::getAnimalListByType($type) as $k => $animal) {
             $filter[$k] = $animal->getName();
         }
@@ -78,7 +78,7 @@ class AnimalShelter
      */
     private static function getAnimalListByType(string $type = null)
     {
-        /** @var Animal $animal */
+        /** @var AbstractAnimal $animal */
         foreach (static::$animalList as $k => $animal) {
             if ($animal->getType() === $type || empty($type)) {
                 yield $k => $animal;

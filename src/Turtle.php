@@ -7,7 +7,7 @@ namespace App;
  *
  * @package App
  */
-class Turtle extends Animal
+class Turtle extends AbstractAnimal
 {
     const TYPE = 'Черепаха';
 }
