@@ -36,50 +36,47 @@ final class AnimalShelterTest extends TestCase
         );
     }
 
+    /**
+     * @expectedException TypeError
+     */
     public function testCanNotBeCreatedFromInvalidObject(): void
     {
-        $this->expectException(TypeError::class);
-
         AnimalShelter::takeInAnimal(null);
     }
 
     /**
-     * @throws \Exception
+     * @expectedException BadMethodCallException
+     * @throws Exception
      */
     public function testCanNotBeCreatedFromEmptyNameCatObject(): void
     {
-        $this->expectException(BadMethodCallException::class);
-
         AnimalShelter::takeInAnimal(new Cat('', ''));
     }
 
     /**
+     * @expectedException BadMethodCallException
      * @throws \Exception
      */
     public function testCanNotBeCreatedFromEmptyBirthdayCatObject(): void
     {
-        $this->expectException(BadMethodCallException::class);
-
         AnimalShelter::takeInAnimal(new Cat('CatName', ''));
     }
 
     /**
+     * @expectedException Exception
      * @throws \Exception
      */
     public function testCanNotBeCreatedFromInvalidBirthdayDateCatObject(): void
     {
-        $this->expectException(Exception::class);
-
         AnimalShelter::takeInAnimal(new Cat('CatName', '2018-13-30'));
     }
 
     /**
+     * @expectedException OutOfBoundsException
      * @throws \Exception
      */
     public function testCanNotBeCreatedFromOutOfBoundsBirthdayDateCatObject(): void
     {
-        $this->expectException(OutOfBoundsException::class);
-
         AnimalShelter::takeInAnimal(new Cat('CatName', '2059-03-14'));
     }
 
